@@ -1,0 +1,94 @@
+<div class="flex flex-row-reverse">
+  <button
+    [routerLink]="['/cars', tableModel.brandId, 'create']"
+    class="rounded-lg bg-red-400 px-3 py-1 px-3 font-bold text-white"
+    type="button"
+  >
+    Create New
+  </button>
+</div>
+
+<section *ngIf="brand$ | async as brand">
+  <h1 class="text-xl font-bold">Brand Information</h1>
+
+  <figure class="mt-5 flex items-center space-x-5">
+    <img
+      class="h-20 w-20 object-contain"
+      [src]="brand.brandLogo"
+      [alt]="brand.name"
+    />
+    <figcaption>
+      <p class="text-lg font-semibold">{{ brand.name }}</p>
+      <p>{{ brand.description }}</p>
+    </figcaption>
+  </figure>
+</section>
+
+<ng-container *ngIf="cars$ | async as carList; else spinner">
+  <div
+    class="relative mt-5 grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-4"
+  >
+    <figure
+      *ngFor="let car of carList; trackBy: trackByCarId"
+      class="rounded-lg border bg-white shadow-md hover:bg-gray-100"
+    >
+      <figcaption class="flex flex-col p-4 leading-normal">
+        <a
+          [routerLink]="['/cars', tableModel.brandId, car.id]"
+          class="hover:opacity-50"
+        >
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+            {{ car.name }}
+          </h5>
+        </a>
+        <p class="mb-3 font-normal text-gray-700">
+          {{ car.description }}
+        </p>
+
+        <div class="mt-auto space-x-3">
+          <button
+            [routerLink]="['/cars', tableModel.brandId, 'update', car.id]"
+            type="button"
+            class="rounded-xl bg-amber-500 py-1 px-4 font-semibold text-white"
+          >
+            Edit
+          </button>
+          <button
+            (click)="deleteCar(car)"
+            type="button"
+            class="rounded-xl bg-amber-500 py-1 px-4 font-semibold text-white"
+          >
+            Delete
+          </button>
+        </div>
+      </figcaption>
+    </figure>
+
+    <ng-container *ngIf="loading$ | async">
+      <ng-container *ngTemplateOutlet="spinner"></ng-container>
+    </ng-container>
+  </div>
+
+  <div
+    *ngIf="!(loading$ | async) && carList.length % tableModel.size === 0"
+    class="mt-7 flex justify-center"
+  >
+    <button
+      (click)="nextPage()"
+      class="rounded-xl bg-amber-500 py-2 px-6 text-xl font-semibold text-white"
+      type="button"
+    >
+      Load More
+    </button>
+  </div>
+</ng-container>
+
+<ng-template #spinner>
+  <div class="absolute inset-0 flex items-center justify-center bg-white/75">
+    <app-spinner
+      class="text-center"
+      spinnerSizeClass="w-10 h-10"
+      spinnerText="Please Wait..."
+    ></app-spinner>
+  </div>
+</ng-template>

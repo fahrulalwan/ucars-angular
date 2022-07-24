@@ -1,0 +1,14 @@
+:host {
+  animation: custom-dialog-enter .15s ease-out;
+}
+
+@keyframes custom-dialog-enter {
+  from {
+    transform: scale(.9);
+  }
+
+  to {
+    transform: none;
+  }
+}
+

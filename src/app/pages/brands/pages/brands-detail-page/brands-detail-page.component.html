@@ -1,0 +1,5 @@
+<app-brands-form
+  *ngIf="brandDetail$ | async as brandDetail"
+  [data]="brandDetail"
+  [disabled]="true"
+></app-brands-form>

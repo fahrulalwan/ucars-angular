@@ -1,0 +1,5 @@
+<app-cars-form
+  *ngIf="carData$ | async as carData"
+  (submitChange)="onSubmit($event)"
+  [data]="carData"
+></app-cars-form>

@@ -1,0 +1,5 @@
+<app-cars-form
+  *ngIf="carDetail$ | async as carDetail"
+  [data]="carDetail"
+  [disabled]="true"
+></app-cars-form>

@@ -1,0 +1,90 @@
+<form
+  [formGroup]="form"
+  class="relative mx-auto mt-5 max-w-md space-y-5"
+  (ngSubmit)="onSubmit()"
+>
+  <div>
+    <label class="block font-semibold" for="name"
+      >Name<span class="text-sm text-red-600">*</span></label
+    >
+    <input
+      [class.border-red-600]="name?.touched && name?.hasError('required')"
+      class="mt-1 block w-full rounded-lg border-2 p-2"
+      type="text"
+      id="name"
+      formControlName="name"
+    />
+    <p
+      class="mt-0.5 text-right text-sm font-medium text-red-600"
+      *ngIf="name?.touched && name?.hasError('required')"
+    >
+      This field is required
+    </p>
+  </div>
+
+  <div>
+    <label class="block flex items-end justify-between" for="brandLogo"
+      ><span class="font-semibold"
+        >Brand Logo<span class="text-sm text-red-600">*</span></span
+      >
+      <span class="ml-3 text-right text-xs text-gray-400"
+        >Brand logo url link format</span
+      ></label
+    >
+    <input
+      [class.border-red-600]="
+        brandLogo?.touched && brandLogo?.hasError('required')
+      "
+      class="mt-1 block w-full rounded-lg border-2 p-2"
+      type="text"
+      id="brandLogo"
+      formControlName="brandLogo"
+    />
+    <p
+      class="mt-0.5 text-right text-sm font-medium text-red-600"
+      *ngIf="brandLogo?.touched && brandLogo?.hasError('required')"
+    >
+      This field is required
+    </p>
+  </div>
+
+  <div>
+    <label class="block font-semibold" for="description">Description</label>
+    <textarea
+      [class.border-red-600]="
+        description?.touched && description?.hasError('required')
+      "
+      class="mt-1 block w-full rounded-lg border-2 p-2"
+      type="text"
+      id="description"
+      formControlName="description"
+      rows="3"
+    ></textarea>
+    <p
+      class="mt-0.5 text-right text-sm font-medium text-red-600"
+      *ngIf="description?.touched && description?.hasError('required')"
+    >
+      This field is required
+    </p>
+  </div>
+
+  <div *ngIf="form.enabled" class="flex items-center justify-center space-x-4">
+    <button
+      type="submit"
+      class="rounded-lg bg-blue-500 py-1 px-3 font-semibold text-white"
+    >
+      Submit
+    </button>
+    <button
+      type="reset"
+      class="rounded-lg bg-red-500 py-1 px-3 font-semibold text-white"
+    >
+      Reset
+    </button>
+  </div>
+
+  <app-spinner
+    *ngIf="isLoading | async"
+    class="absolute inset-0 flex items-center justify-center bg-white/75"
+  ></app-spinner>
+</form>

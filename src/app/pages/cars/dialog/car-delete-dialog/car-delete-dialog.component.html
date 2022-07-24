@@ -1,0 +1,20 @@
+<div>
+  <p class="text-center font-medium">Are you sure want to delete this car?</p>
+
+  <div class="mt-4 flex justify-center space-x-3">
+    <button
+      (click)="dialogRef.close(true)"
+      type="button"
+      class="rounded-lg bg-red-600 py-1 px-4 font-semibold text-white"
+    >
+      Delete
+    </button>
+    <button
+      (click)="dialogRef.close(false)"
+      type="button"
+      class="rounded-lg bg-blue-500 py-1 px-4 font-semibold text-white"
+    >
+      Cancel
+    </button>
+  </div>
+</div>
